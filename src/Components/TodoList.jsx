@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from './TodoItem';
 import { addTodo, deleteCompletedTodos } from '../Redux/actions';
-import { useState } from "react";
 
 const TodoList = () => {
   const dispatch = useDispatch();
@@ -37,13 +36,18 @@ const TodoList = () => {
           onChange={(e) => setNewTask(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={handleAddTask}>Add Task</button>
+        <button type="button" onClick={handleAddTask}>Add Task</button>
       </div>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} {...todo} />
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          title={todo.title}
+          isCompleted={todo.isCompleted}
+        />
       ))}
       {todos.length > 0 && (
-        <button onClick={handleDeleteCompleted}>Delete Completed</button>
+        <button type="button" onClick={handleDeleteCompleted}>Delete Completed</button>
       )}
     </div>
   );

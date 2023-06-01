@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { toggleTodo, editTodo, deleteTodo } from '../Redux/actions';
 
@@ -41,18 +42,24 @@ const TodoItem = ({ id, title, isCompleted }) => {
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
           />
-          <button onClick={handleEdit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          <button type="button" onClick={handleEdit}>Save</button>
+          <button type="button" onClick={handleCancelEdit}>Cancel</button>
         </div>
       ) : (
         <div>
           <span>{title}</span>
-          <button onClick={() => setEditing(true)}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+          <button type="button" onClick={() => setEditing(true)}>Edit</button>
+          <button type="button" onClick={handleDelete}>Delete</button>
         </div>
       )}
     </div>
   );
+};
+
+TodoItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  isCompleted: PropTypes.bool.isRequired,
 };
 
 export default TodoItem;
