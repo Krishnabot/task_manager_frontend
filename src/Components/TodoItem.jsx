@@ -28,6 +28,11 @@ const TodoItem = ({ id, title, isCompleted }) => {
     dispatch(deleteTodo(id));
   };
 
+  const taskStyle = {
+    textDecorationLine: isCompleted ? 'line-through' : 'none',
+    fontStyle: isCompleted ? 'italic' : 'normal',
+  };
+
   return (
     <div>
       <input
@@ -47,7 +52,7 @@ const TodoItem = ({ id, title, isCompleted }) => {
         </div>
       ) : (
         <div>
-          <span>{title}</span>
+          <span style={taskStyle}>{title}</span>
           <button type="button" onClick={() => setEditing(true)}>Edit</button>
           <button type="button" onClick={handleDelete}>Delete</button>
         </div>
