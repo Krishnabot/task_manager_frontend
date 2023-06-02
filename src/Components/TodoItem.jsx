@@ -45,10 +45,18 @@ const TodoItem = ({ id, title, isCompleted }) => {
           className="toggle-checkbox"
           id={`checkbox-${id}`}
         />
-        <label htmlFor={`checkbox-${id}`} />
+        <label htmlFor={`checkbox-${id}`}>
+          <input
+            type="checkbox"
+            checked={isCompleted}
+            onChange={handleToggle}
+            className="toggle-checkbox"
+            id={`checkbox-${id}`}
+          />
+        </label>
       </div>
       {editing ? (
-        <div className='taskitem'>
+        <div className="taskitem">
           <input
             type="text"
             value={editedTitle}
@@ -61,7 +69,7 @@ const TodoItem = ({ id, title, isCompleted }) => {
           </div>
         </div>
       ) : (
-        <div className='taskitem'>
+        <div className="taskitem">
           <span style={taskStyle} className="task-title">{title}</span>
           <div className="btn-group">
             <button type="button" onClick={() => setEditing(true)} className="animated-link">Edit</button>
