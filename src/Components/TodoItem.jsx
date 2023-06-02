@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { toggleTodo, editTodo, deleteTodo } from '../Redux/actions';
+import './TodoItem.css'; // Import your custom CSS file
 
 const TodoItem = ({ id, title, isCompleted }) => {
   const dispatch = useDispatch();
@@ -31,30 +32,41 @@ const TodoItem = ({ id, title, isCompleted }) => {
   const taskStyle = {
     textDecorationLine: isCompleted ? 'line-through' : 'none',
     fontStyle: isCompleted ? 'italic' : 'normal',
+    fontSize: isCompleted ? '1.5rem' : '2rem',
   };
 
   return (
-    <div>
-      <input
-        type="checkbox"
-        checked={isCompleted}
-        onChange={handleToggle}
-      />
+    <div className="todo-item">
+      <div className={`checkbox ${isCompleted ? 'completed' : 'not-completed'}`}>
+        <input
+          type="checkbox"
+          checked={isCompleted}
+          onChange={handleToggle}
+          className="toggle-checkbox"
+          id={`checkbox-${id}`}
+        />
+        <label htmlFor={`checkbox-${id}`} />
+      </div>
       {editing ? (
-        <div>
+        <div className='taskitem'>
           <input
             type="text"
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
+            className="edit-task-input"
           />
-          <button type="button" onClick={handleEdit}>Save</button>
-          <button type="button" onClick={handleCancelEdit}>Cancel</button>
+          <div className="btn-group">
+            <button type="button" onClick={handleEdit} className="animated-link">Save</button>
+            <button type="button" onClick={handleCancelEdit} className="animated-link">Cancel</button>
+          </div>
         </div>
       ) : (
-        <div>
-          <span style={taskStyle}>{title}</span>
-          <button type="button" onClick={() => setEditing(true)}>Edit</button>
-          <button type="button" onClick={handleDelete}>Delete</button>
+        <div className='taskitem'>
+          <span style={taskStyle} className="task-title">{title}</span>
+          <div className="btn-group">
+            <button type="button" onClick={() => setEditing(true)} className="animated-link">Edit</button>
+            <button type="button" onClick={handleDelete} className="animated-link">Delete</button>
+          </div>
         </div>
       )}
     </div>

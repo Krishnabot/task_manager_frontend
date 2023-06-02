@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from './TodoItem';
 import { addTodo, deleteCompletedTodos } from '../Redux/actions';
+import './TodoList.css';
 
 const TodoList = () => {
   const dispatch = useDispatch();
@@ -29,26 +30,30 @@ const TodoList = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="todo-list">
+      <div className="add-task-container">
         <input
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           onKeyDown={handleKeyDown}
+          className="new-task-input"
+          placeholder="What do you want to do today?"
         />
-        <button type="button" onClick={handleAddTask}>Add Task</button>
+        <button type="button" onClick={handleAddTask} className="add-task-btn">Add Task</button>
       </div>
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          id={todo.id}
-          title={todo.title}
-          isCompleted={todo.isCompleted}
-        />
-      ))}
+      <div className="task-list">
+        {todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            title={todo.title}
+            isCompleted={todo.isCompleted}
+          />
+        ))}
+      </div>
       {todos.length > 0 && (
-        <button type="button" onClick={handleDeleteCompleted}>Delete Completed</button>
+        <button type="button" onClick={handleDeleteCompleted} className="delete-completed-btn">Delete Completed</button>
       )}
     </div>
   );
