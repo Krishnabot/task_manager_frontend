@@ -9,9 +9,10 @@ const TodoList = () => {
   const [newTask, setNewTask] = useState('');
 
   const handleDeleteCompleted = () => {
-    const completedTodos = todos.filter((todo) => todo.isCompleted);
-    const completedTodoIds = completedTodos.map((todo) => todo.id);
-    dispatch(deleteCompletedTodos(completedTodoIds));
+    const completedTodos = todos.reduce(
+      (ids, todo) => (todo.isCompleted ? [...ids, todo.id] : ids), [],
+    );
+    dispatch(deleteCompletedTodos(completedTodos));
   };
 
   const handleAddTask = () => {
